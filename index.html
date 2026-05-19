@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evgenija – Časovi Violine, Viole i Solfeđa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF8F3;
+    --ink: #1A1714;
+    --warm-mid: #6B5E4E;
+    --accent: #8B3A2A;
+    --accent-light: #C8705A;
+    --border: rgba(107,94,78,0.2);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(250,248,243,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-text {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem 6rem;
+    position: relative; z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    color: var(--warm-mid);
+    max-width: 380px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.9rem 2.5rem;
+    background: var(--accent);
+    color: #FAF8F3;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    align-self: flex-start;
+  }
+  .btn-primary:hover { background: #a0432f; transform: translateY(-1px); }
+
+  .hero-visual {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #3d1f16 0%, #6b3020 40%, #2a1208 100%);
+  }
+
+  /* decorative staff lines */
+  .staff-lines {
+    position: absolute; inset: 0;
+    opacity: 0.08;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 4rem;
+    gap: 1.8rem;
+  }
+  .staff-line {
+    height: 1px;
+    background: #FAF8F3;
+    width: 100%;
+    animation: fadeIn 1s ease both;
+  }
+  .staff-line:nth-child(1) { animation-delay: 0.1s; }
+  .staff-line:nth-child(2) { animation-delay: 0.2s; }
+  .staff-line:nth-child(3) { animation-delay: 0.3s; }
+  .staff-line:nth-child(4) { animation-delay: 0.4s; }
+  .staff-line:nth-child(5) { animation-delay: 0.5s; }
+
+  .hero-instrument-text {
+    position: absolute;
+    inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: clamp(6rem, 12vw, 14rem);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(250,248,243,0.06);
+    letter-spacing: -0.03em;
+    user-select: none;
+  }
+
+  .hero-tag {
+    position: absolute;
+    bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 2rem;
+  }
+
+  .hero-tag-item {
+    text-align: center;
+    color: rgba(250,248,243,0.7);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .hero-tag-item strong {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    font-style: italic;
+    color: #FAF8F3;
+    letter-spacing: 0;
+    margin-bottom: 0.2rem;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scaleX(0.8); }
+    to { opacity: 1; transform: scaleX(1); }
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 6rem;
+  }
+
+  /* ABOUT */
+  .about {
+    padding: 7rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-number {
+    font-family: var(--serif);
+    font-size: 6rem;
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+    margin-top: 0.5rem;
+  }
+
+  .about-body h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-body h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .about-body p {
+    font-size: 0.95rem;
+    color: var(--warm-mid);
+    margin-bottom: 1.2rem;
+    max-width: 560px;
+  }
+
+  .credentials {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .credential-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border: 0.5px solid var(--border);
+    color: var(--warm-mid);
+  }
+
+  /* WHAT I TEACH */
+  .subjects {
+    padding: 5rem 6rem 7rem;
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .subjects .section-label { color: var(--accent-light); }
+
+  .subjects h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 300;
+    margin-bottom: 3.5rem;
+    max-width: 500px;
+    line-height: 1.25;
+  }
+
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .subject-item {
+    padding: 2.5rem 2rem;
+    background: var(--ink);
+    transition: background 0.2s;
+  }
+  .subject-item:hover { background: #24201c; }
+
+  .subject-icon {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+  }
+
+  .subject-name {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #FAF8F3;
+    margin-bottom: 0.5rem;
+  }
+
+  .subject-desc {
+    font-size: 0.82rem;
+    color: rgba(250,248,243,0.5);
+    line-height: 1.7;
+  }
+
+  /* PRICING */
+  .pricing {
+    padding: 7rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .pricing-intro h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-intro p {
+    font-size: 0.9rem;
+    color: var(--warm-mid);
+    max-width: 340px;
+  }
+
+  .pricing-cards { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+
+  .price-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 2rem;
+    background: var(--cream);
+    transition: background 0.15s;
+  }
+  .price-row:hover { background: #F2EFE8; }
+
+  .price-duration {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 300;
+  }
+
+  .price-amount {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .price-unit {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    margin-left: 0.4rem;
+  }
+
+  .online-note {
+    margin-top: 2rem;
+    padding: 1.25rem 1.5rem;
+    border-left: 2px solid var(--accent);
+    background: rgba(139,58,42,0.05);
+  }
+
+  .online-note p {
+    font-size: 0.85rem;
+    color: var(--warm-mid);
+  }
+
+  .online-note strong { color: var(--ink); font-weight: 500; }
+
+  /* CONTACT */
+  .contact {
+    padding: 6rem;
+    background: #F2EFE8;
+    text-align: center;
+  }
+
+  .contact h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+
+  .contact p {
+    font-size: 0.9rem;
+    color: var(--warm-mid);
+    margin-bottom: 3rem;
+  }
+
+  .contact-links {
+    display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0.9rem 2rem;
+    border: 0.5px solid var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+  .contact-link:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 6rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 0.5px solid var(--border);
+    font-size: 0.72rem;
+    color: var(--warm-mid);
+    letter-spacing: 0.06em;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-text { padding: 7rem 1.5rem 3rem; }
+    .hero-visual { height: 260px; }
+
+    .section-divider { margin: 0 1.5rem; }
+
+    .about { padding: 4rem 1.5rem; grid-template-columns: 1fr; gap: 1.5rem; }
+    .section-number { display: none; }
+
+    .subjects { padding: 4rem 1.5rem; }
+    .pricing { padding: 4rem 1.5rem; grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact { padding: 4rem 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Evgenija</a>
+  <ul class="nav-links">
+    <li><a href="#about">O meni</a></li>
+    <li><a href="#subjects">Predmeti</a></li>
+    <li><a href="#pricing">Cene</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Privatni časovi muzike · Beograd</p>
+    <h1 class="hero-title">
+      Violina,<br>
+      <em>viola</em> &amp;<br>
+      solfeđo
+    </h1>
+    <p class="hero-sub">
+      Individualni pristup svakom učeniku. Časovi za sve uzraste i nivoe — od početnika do naprednih polaznika.
+    </p>
+    <a href="#contact" class="btn-primary">Zakaži čas</a>
+  </div>
+
+  <div class="hero-visual">
+    <div class="staff-lines">
+      <div class="staff-line"></div>
+      <div class="staff-line"></div>
+      <div class="staff-line"></div>
+      <div class="staff-line"></div>
+      <div class="staff-line"></div>
+    </div>
+    <div class="hero-instrument-text">♩</div>
+    <div class="hero-tag">
+      <div class="hero-tag-item"><strong>10+</strong>godina iskustva</div>
+      <div class="hero-tag-item"><strong>MA</strong>master viole</div>
+      <div class="hero-tag-item"><strong>Online</strong>dostupno</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <p class="section-label">O meni</p>
+    <div class="section-number">01</div>
+  </div>
+  <div class="about-body">
+    <h2>Muzičar &amp; <em>pedagog</em></h2>
+    <p>
+      Diplomirala sam master studije viole na Muzičkoj akademiji „Prof. Pančo Vladigerov" u Sofiji, Bugarska. Tokom studija učestvovala sam na međunarodnim festivalima i takmičenjima, kao solista i kamerni izvođač.
+    </p>
+    <p>
+      Orkestarsko iskustvo stekla sam svirajući u Sofijskoj filharmoniji, a pedagoško, nakon povratka u Beograd, predavajući violu i kamernu muziku u Muzičkoj školi „Davorin Jenko".
+    </p>
+    <p>
+      Volim pedagogiju i svakom učeniku pristupam individualno, prilagođavajući različite metode rada za njegov najbolji napredak.
+    </p>
+    <div class="credentials">
+      <span class="credential-tag">Master viole</span>
+      <span class="credential-tag">Sofijska filharmonija</span>
+      <span class="credential-tag">MŠ Davorin Jenko</span>
+      <span class="credential-tag">Kamerna muzika</span>
+      <span class="credential-tag">Muzički teoretičar</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SUBJECTS -->
+<section class="subjects" id="subjects">
+  <p class="section-label">Šta podučavam</p>
+  <h2>Četiri oblasti,<br>jedna strast</h2>
+  <div class="subjects-grid">
+    <div class="subject-item">
+      <div class="subject-icon">Vl</div>
+      <div class="subject-name">Violina</div>
+      <div class="subject-desc">Tehnika gudala, intonacija, repertoar od klasike do savremene muzike.</div>
+    </div>
+    <div class="subject-item">
+      <div class="subject-icon">Va</div>
+      <div class="subject-name">Viola</div>
+      <div class="subject-desc">Specijalizovana nastava na instrumentu — od osnova do naprednog nivoa.</div>
+    </div>
+    <div class="subject-item">
+      <div class="subject-icon">Sol</div>
+      <div class="subject-name">Solfeđo</div>
+      <div class="subject-desc">Čitanje nota, ritam, pevanje po notama i razvoj muzičkog sluha.</div>
+    </div>
+    <div class="subject-item">
+      <div class="subject-icon">Th</div>
+      <div class="subject-name">Teorija muzike</div>
+      <div class="subject-desc">Muzički oblici, harmonija i teorija — priprema za školske ispite.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-intro">
+    <p class="section-label">Cene časova</p>
+    <h2>Jasne cene, bez iznenadjenja</h2>
+    <p style="color: var(--warm-mid); font-size: 0.9rem; max-width: 300px; margin-bottom: 0;">
+      Mogući su časovi uživo u Beogradu ili online — po dogovoru.
+    </p>
+    <div class="online-note" style="margin-top: 2rem;">
+      <p><strong>Online časovi dostupni!</strong> Uz pomoć platforme po izboru — Zoom, Teams ili Skype.</p>
+    </div>
+  </div>
+  <div>
+    <div class="pricing-cards">
+      <div class="price-row">
+        <div>
+          <div class="price-duration">45 minuta</div>
+        </div>
+        <div>
+          <span class="price-amount">2.000</span>
+          <span class="price-unit">RSD</span>
+        </div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-duration">1 sat</div>
+        </div>
+        <div>
+          <span class="price-amount">2.500</span>
+          <span class="price-unit">RSD</span>
+        </div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-duration">1 sat i 30 min</div>
+        </div>
+        <div>
+          <span class="price-amount">3.000</span>
+          <span class="price-unit">RSD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-label" style="text-align: center;">Kontakt</p>
+  <h2>Iskreno se radujem<br>Vašem pozivu</h2>
+  <p>Javite se za zakazivanje časa ili bilo kakva pitanja</p>
+  <div class="contact-links">
+    <a href="tel:+381000000000" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Pozovite
+    </a>
+    <a href="mailto:evgenija@example.com" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Pišite
+    </a>
+    <a href="https://viber.me/" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Viber / WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Evgenija — Privatni časovi muzike</span>
+  <span>Beograd, Srbija</span>
+</footer>
+
+</body>
+</html>
