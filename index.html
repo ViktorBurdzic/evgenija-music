@@ -560,8 +560,8 @@
   <div class="hero-text">
     <p class="hero-eyebrow">Privatni časovi muzike · Beograd</p>
     <h1 class="hero-title">
-      Violina,<br>
-      <em>viola</em> &amp;<br>
+      <em>Viola</em>,<br>
+      violina &amp;<br>
       solfeđo
     </h1>
     <p class="hero-sub">
@@ -721,7 +721,10 @@
     <button class="modal-close" onclick="closeModal()" aria-label="Zatvori">&times;</button>
     <h3>Pošaljite poruku</h3>
     <p>Odgovoram u roku od 24 sata.</p>
-    <form id="contactForm" onsubmit="handleSubmit(event)">
+    <form action="https://formsubmit.co/evgenijastoicev99@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://viktorburdzic.github.io/evgenija-music/thanks.html">
       <div class="form-field">
         <label for="cf-name">Ime i prezime</label>
         <input type="text" id="cf-name" name="name" required placeholder="Vaše ime">
@@ -732,14 +735,13 @@
       </div>
       <div class="form-field">
         <label for="cf-subject">Predmet</label>
-        <input type="text" id="cf-subject" name="subject" placeholder="Npr. Časovi violine za odrasle">
+        <input type="text" id="cf-subject" name="_subject" placeholder="Npr. Časovi violine za odrasle">
       </div>
       <div class="form-field">
         <label for="cf-message">Poruka</label>
-        <textarea id="cf-message" name="message" required placeholder="Napišite nešto o sebi i šta želite da naučite..."></textarea>
+        <textarea id="cf-message" name="message" required placeholder="Napišite nešto o sebi i štaželite da naučite..."></textarea>
       </div>
-      <button type="submit" class="btn-primary" id="cf-submit">Pošalji poruku</button>
-      <p class="form-status" id="cf-status"></p>
+      <button type="submit" class="btn-primary">Pošalji poruku</button>
     </form>
   </div>
 </div>
@@ -752,52 +754,6 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeModal();
   });
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const btn = document.getElementById('cf-submit');
-    const status = document.getElementById('cf-status');
-    const form = document.getElementById('contactForm');
-
-    const name    = document.getElementById('cf-name').value.trim();
-    const email   = document.getElementById('cf-email').value.trim();
-    const subject = document.getElementById('cf-subject').value.trim() || 'Upit sa sajta';
-    const message = document.getElementById('cf-message').value.trim();
-
-    btn.disabled = true;
-    btn.textContent = 'Slanje…';
-    status.textContent = '';
-    status.className = 'form-status';
-
-    try {
-      const res = await fetch('https://formsubmit.co/ajax/evgenijastoicev99@gmail.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          _subject: subject,
-          message,
-          _captcha: 'false',
-          _template: 'table'
-        })
-      });
-
-      if (res.ok) {
-        status.textContent = 'Poruka je uspešno poslata! Javljam se uskoro.';
-        status.className = 'form-status success';
-        form.reset();
-      } else {
-        throw new Error();
-      }
-    } catch {
-      status.textContent = 'Slanje nije uspelo. Pokušajte direktno na evgenijastoicev99@gmail.com.';
-      status.className = 'form-status error';
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Pošalji poruku';
-    }
-  }
 </script>
 
 </body>
