@@ -155,17 +155,16 @@
   .staff-line:nth-child(4) { animation-delay: 0.4s; }
   .staff-line:nth-child(5) { animation-delay: 0.5s; }
 
-  .hero-instrument-text {
+  .hero-photo {
     position: absolute;
     inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif);
-    font-size: clamp(6rem, 12vw, 14rem);
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(250,248,243,0.06);
-    letter-spacing: -0.03em;
-    user-select: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    mix-blend-mode: luminosity;
+    opacity: 0.75;
   }
 
   .hero-tag {
@@ -427,11 +426,91 @@
     padding: 0.9rem 2rem;
     border: 0.5px solid var(--ink);
     transition: background 0.2s, color 0.2s;
+    background: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 300;
   }
   .contact-link:hover {
     background: var(--ink);
     color: var(--cream);
   }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(26,23,20,0.6);
+    backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--cream);
+    width: min(520px, 92vw);
+    padding: 3rem;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute; top: 1.25rem; right: 1.25rem;
+    background: none; border: none; cursor: pointer;
+    color: var(--warm-mid); font-size: 1.4rem; line-height: 1;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--ink); }
+
+  .modal h3 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal > p {
+    font-size: 0.85rem;
+    color: var(--warm-mid);
+    margin-bottom: 2rem;
+  }
+
+  .form-field {
+    display: flex; flex-direction: column; gap: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .form-field label {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+  }
+
+  .form-field input,
+  .form-field textarea {
+    background: #F2EFE8;
+    border: 0.5px solid var(--border);
+    padding: 0.75rem 1rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus { border-color: var(--accent); }
+
+  .form-field textarea { min-height: 120px; }
+
+  .form-status {
+    font-size: 0.82rem;
+    margin-top: 0.75rem;
+    min-height: 1.2em;
+  }
+  .form-status.success { color: #3a7a3a; }
+  .form-status.error { color: var(--accent); }
 
   /* FOOTER */
   footer {
@@ -499,7 +578,7 @@
       <div class="staff-line"></div>
       <div class="staff-line"></div>
     </div>
-    <div class="hero-instrument-text">♩</div>
+    <img src="images/evgenija.jpeg" alt="Evgenija svira violu" class="hero-photo">
     <div class="hero-tag">
       <div class="hero-tag-item"><strong>10+</strong>godina iskustva</div>
       <div class="hero-tag-item"><strong>MA</strong>master viole</div>
@@ -576,7 +655,7 @@
       Mogući su časovi uživo u Beogradu ili online — po dogovoru.
     </p>
     <div class="online-note" style="margin-top: 2rem;">
-      <p><strong>Online časovi dostupni!</strong> Uz pomoć platforme po izboru — Zoom, Teams ili Skype.</p>
+      <p><strong>Online časovi dostupni!</strong> Uz pomoć platforme po izboru — Zoom ili Teams.</p>
     </div>
   </div>
   <div>
@@ -624,14 +703,10 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       Pozovite
     </a>
-    <a href="mailto:evgenija@example.com" class="contact-link">
+    <button class="contact-link" onclick="document.getElementById('contactModal').classList.add('open')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
       Pišite
-    </a>
-    <a href="https://viber.me/" class="contact-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      Viber / WhatsApp
-    </a>
+    </button>
   </div>
 </section>
 
@@ -639,6 +714,91 @@
   <span>© 2025 Evgenija — Privatni časovi muzike</span>
   <span>Beograd, Srbija</span>
 </footer>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="contactModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Zatvori">&times;</button>
+    <h3>Pošaljite poruku</h3>
+    <p>Odgovoram u roku od 24 sata.</p>
+    <form id="contactForm" onsubmit="handleSubmit(event)">
+      <div class="form-field">
+        <label for="cf-name">Ime i prezime</label>
+        <input type="text" id="cf-name" name="name" required placeholder="Vaše ime">
+      </div>
+      <div class="form-field">
+        <label for="cf-email">Vaša email adresa</label>
+        <input type="email" id="cf-email" name="email" required placeholder="vas@email.com">
+      </div>
+      <div class="form-field">
+        <label for="cf-subject">Predmet</label>
+        <input type="text" id="cf-subject" name="subject" placeholder="Npr. Časovi violine za odrasle">
+      </div>
+      <div class="form-field">
+        <label for="cf-message">Poruka</label>
+        <textarea id="cf-message" name="message" required placeholder="Napišite nešto o sebi i šta želite da naučite..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="cf-submit">Pošalji poruku</button>
+      <p class="form-status" id="cf-status"></p>
+    </form>
+  </div>
+</div>
+
+<script>
+  function closeModal() {
+    document.getElementById('contactModal').classList.remove('open');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('cf-submit');
+    const status = document.getElementById('cf-status');
+    const form = document.getElementById('contactForm');
+
+    const name    = document.getElementById('cf-name').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const subject = document.getElementById('cf-subject').value.trim() || 'Upit sa sajta';
+    const message = document.getElementById('cf-message').value.trim();
+
+    btn.disabled = true;
+    btn.textContent = 'Slanje…';
+    status.textContent = '';
+    status.className = 'form-status';
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/evgenijastoicev99@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          _subject: subject,
+          message,
+          _captcha: 'false',
+          _template: 'table'
+        })
+      });
+
+      if (res.ok) {
+        status.textContent = 'Poruka je uspešno poslata! Javljam se uskoro.';
+        status.className = 'form-status success';
+        form.reset();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      status.textContent = 'Slanje nije uspelo. Pokušajte direktno na evgenijastoicev99@gmail.com.';
+      status.className = 'form-status error';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Pošalji poruku';
+    }
+  }
+</script>
 
 </body>
 </html>
